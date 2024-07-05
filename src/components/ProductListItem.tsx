@@ -18,6 +18,8 @@ const ProductListItem = ({ product }: ProductListItemProps) => {
       <Image
         source={{ uri: product.image || defaultPizzaImage }}
         style={styles.image}
+        resizeMode="contain" //to adjust image to fully show picture in the container
+
       />
       <Text style={styles.title}>{product.name}</Text>
       <Text style={styles.price}>${product.price}</Text>
@@ -32,6 +34,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 10,
     borderRadius: 20,
+    flex:1, //it will split equally the space among siblings (50-50 with 2 columns)
+    maxWidth:'50%' //in case we have odd number of product, the one leftover product will occupy 50% of the space only.
   },
   image: {
     width: "100%",

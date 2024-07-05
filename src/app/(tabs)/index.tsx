@@ -1,12 +1,18 @@
 import products from "@assets/data/products";
 import ProductListItem from "@components/ProductListItem";
-import { View } from "react-native";
+import { View,FlatList } from "react-native";
+
 
 export default function MenuScreen() {
   return (
     <View>
-      <ProductListItem product={products[4]} />
-      <ProductListItem product={products[1]} />
+      <FlatList 
+      data={products}
+      renderItem={({item})=><ProductListItem product={item}/>}
+      numColumns={2}
+      contentContainerStyle ={{gap:10, padding:10}} //gap between rows
+      columnWrapperStyle={{gap:10}} //gap between columns
+      />
     </View>
   );
 }
