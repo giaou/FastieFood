@@ -1,13 +1,24 @@
-import products from "@/assets/data/products";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Colors from "../constants/Colors";
+import { Product } from "../types";
 
+export const defaultPizzaImage =
+  "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png";
 
-const ProductListItem = ({product}) => {
+//set type for the product attribute
+type ProductListItemProps = {
+  product: Product;
+};
+
+//{product}:ProductListItemProps:  specify the type, the declared Product type will now complain if there are any invalid types {product}:ProductListItemProps
+const ProductListItem = ({ product }: ProductListItemProps) => {
   console.log(product);
   return (
     <View style={styles.container}>
-      <Image source={{ uri: product.image }} style={styles.image} />
+      <Image
+        source={{ uri: product.image || defaultPizzaImage }}
+        style={styles.image}
+      />
       <Text style={styles.title}>{product.name}</Text>
       <Text style={styles.price}>${product.price}</Text>
     </View>
