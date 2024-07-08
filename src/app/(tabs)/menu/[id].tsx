@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: "bold",
+    marginTop:'auto'
   },
   sizes: {
     flexDirection: "row",
