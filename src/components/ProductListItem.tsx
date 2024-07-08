@@ -13,9 +13,8 @@ type ProductListItemProps = {
 
 //{product}:ProductListItemProps:  specify the type, the declared Product type will now complain if there are any invalid types {product}:ProductListItemProps
 const ProductListItem = ({ product }: ProductListItemProps) => {
-  console.log(product);
   return (
-    <Link href={`/${product.id}`} asChild>
+    <Link href={`/menu/${product.id}`} asChild>
       <Pressable style={styles.container}>
         <Image
           source={{ uri: product.image || defaultPizzaImage }}
