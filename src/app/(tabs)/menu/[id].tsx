@@ -1,23 +1,27 @@
 /* this page is used to display details of pizzas */
 
 import products from "@/assets/data/products";
-import Button from "@/src/components/button";
+import Button from "@/src/components/Button";
 import { defaultPizzaImage } from "@/src/components/ProductListItem";
+import { useCart } from "@/src/providers/CartProvider";
+import { PizzaSize } from "@/src/types";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-const sizes = ["S", "M", "L", "XL"];
+const sizes: PizzaSize[] = ["S", "M", "L", "XL"];
 
 const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams();
+  const { addItem } = useCart();
 
-  const [selectedSize, setSelectedSize] = useState("M");
+  const [selectedSize, setSelectedSize] = useState<PizzaSize>("M");
 
   const product = products.find((p) => p.id.toString() === id);
 
   const addToCart = () => {
-    console.warn("Button Pressed", selectedSize);
+    if (!product) return;
+    addItem(product, selectedSize);
   };
   if (!product) {
     return <Text>Product not found!!</Text>;
@@ -78,7 +82,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: "bold",
-    marginTop:'auto'
+    marginTop: "auto",
   },
   sizes: {
     flexDirection: "row",
