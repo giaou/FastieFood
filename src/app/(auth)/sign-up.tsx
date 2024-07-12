@@ -1,12 +1,24 @@
 import Button from "@/src/components/Button";
 import Colors from "@/src/constants/Colors";
+import { supabase } from "@/src/lib/supabase";
 import { Link, Stack } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function signUpWithEmail() {
+    setLoading(true);
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+    if (error) Alert.alert(error.message);
+    setLoading(false);
+  }
 
   const onInput = () => {
     setEmail(email);
@@ -31,7 +43,11 @@ const SignUp = () => {
         secureTextEntry
         style={styles.input}
       ></TextInput>
-      <Button text="Create account"></Button>
+      <Button
+        onPress={signUpWithEmail}
+        disabled={loading}
+        text={loading ? "Creating account..." : "Create account"}
+      ></Button>
       <Link href="/sign-in" asChild>
         <Text style={styles.signup}>Sign in</Text>
       </Link>
